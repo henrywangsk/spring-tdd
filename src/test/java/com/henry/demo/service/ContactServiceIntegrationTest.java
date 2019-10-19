@@ -20,9 +20,9 @@ import com.henry.demo.domain.CustomerContact;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.NONE)
-public class ContactsManagementServiceIntegrationTest {
+public class ContactServiceIntegrationTest {
   @Autowired
-  private ContactsManagementService contactsManagementService;
+  private ContactService contactService;
   
   @Test
   public void addContact_shouldReturnCreatedContact() {
@@ -32,7 +32,7 @@ public class ContactsManagementServiceIntegrationTest {
     aContact.setFirstName(firstName);
     aContact.setEmail(email);
     
-    Optional<CustomerContact> createdContact = contactsManagementService.add(aContact);
+    Optional<CustomerContact> createdContact = contactService.add(aContact);
     assertTrue(createdContact.isPresent());
     assertNotNull(createdContact.get().getId());
     assertThat(createdContact.get().getFirstName(), is(equalTo(firstName)));
@@ -44,7 +44,7 @@ public class ContactsManagementServiceIntegrationTest {
     CustomerContact aContact = new CustomerContact();
     aContact.setFirstName("Jenny");
     
-    Optional<CustomerContact> createdContact = contactsManagementService.add(aContact);
+    Optional<CustomerContact> createdContact = contactService.add(aContact);
     assertFalse(createdContact.isPresent());
   }
 }

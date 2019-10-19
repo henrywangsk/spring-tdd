@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.henry.demo.domain.CustomerContact;
 
-public interface ContactsManagementService {
+public interface ContactService {
 
   Optional<CustomerContact> add(CustomerContact aContact);
 

@@ -10,7 +10,7 @@ import com.henry.demo.data.repos.CustomerContactRepository;
 import com.henry.demo.domain.CustomerContact;
 
 @Service
-public class ContactsManagementServiceImpl implements ContactsManagementService {
+public class ContactServiceImpl implements ContactService {
   @Autowired
   private CustomerContactRepository customerContactRepository;
 

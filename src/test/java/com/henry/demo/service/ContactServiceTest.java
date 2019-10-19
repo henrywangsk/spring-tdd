@@ -22,11 +22,11 @@ import com.henry.demo.data.repos.CustomerContactRepository;
 import com.henry.demo.domain.CustomerContact;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes= {ContactsManagementServiceImpl.class})
-public class ContactsManagementServiceTest {
+@ContextConfiguration(classes= {ContactServiceImpl.class})
+public class ContactServiceTest {
   
   @Autowired
-  private ContactsManagementService contactsManagementService;
+  private ContactService contactService;
   
   @MockBean
   private CustomerContactRepository customerContactRepository;
@@ -51,7 +51,7 @@ public class ContactsManagementServiceTest {
     CustomerContact aContact = new CustomerContact();
     aContact.setFirstName(firstName);
     aContact.setEmail(email);
-    Optional<CustomerContact> createdContact = contactsManagementService.add(aContact);
+    Optional<CustomerContact> createdContact = contactService.add(aContact);
     
     assertTrue(createdContact.isPresent());
     assertThat(createdContact.get(), is(equalTo(mockedContact)));
@@ -61,7 +61,7 @@ public class ContactsManagementServiceTest {
   public final void addContact_withoutEmailShouldReturnEmpty() {
     CustomerContact aContact = new CustomerContact();
     aContact.setFirstName(firstName);
-    Optional<CustomerContact> createdContact = contactsManagementService.add(aContact);
+    Optional<CustomerContact> createdContact = contactService.add(aContact);
     
     assertFalse(createdContact.isPresent());
   }
@@ -70,7 +70,7 @@ public class ContactsManagementServiceTest {
   public final void findByEmail_shouldReturnFoundContact() {
     when(customerContactRepository.findByEmail(email)).thenReturn(mockedContact);
     
-    Optional<CustomerContact> foundContact = contactsManagementService.findByEmail(email);
+    Optional<CustomerContact> foundContact = contactService.findByEmail(email);
     
     assertTrue(foundContact.isPresent());
     assertThat(foundContact.get(), is(equalTo(mockedContact)));
@@ -80,7 +80,7 @@ public class ContactsManagementServiceTest {
   public final void findByEmail_shouldReturnEmptyWhenNotFound() {
     when(customerContactRepository.findByEmail(email)).thenReturn(null);
     
-    Optional<CustomerContact> foundContact = contactsManagementService.findByEmail(email);
+    Optional<CustomerContact> foundContact = contactService.findByEmail(email);
     
     assertFalse(foundContact.isPresent());
   }
