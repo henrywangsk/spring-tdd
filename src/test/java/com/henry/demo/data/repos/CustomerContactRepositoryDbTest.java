@@ -2,6 +2,7 @@ package com.henry.demo.data.repos;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -30,15 +31,21 @@ import com.henry.demo.domain.CustomerContact;
   TransactionalTestExecutionListener.class,
   DbUnitTestExecutionListener.class
 })
-public class CustomerContactRepositoryDbUnitTest {
+public class CustomerContactRepositoryDbTest {
   @Autowired
   private CustomerContactRepository customerContactRepository;
 
   @Test
-  public void testFindByEmail() {
-    // Find an inserted record
+  public void findByEmail_shouldReturnContact() {
     CustomerContact foundContact = customerContactRepository.findByEmail("elaine@myemail.com");
     
     assertThat(foundContact.getEmail(), is(equalTo("elaine@myemail.com")));
+  }
+  
+  @Test
+  public void findByEmail_withNonExistEmailShouldReturnNull() {
+    CustomerContact nullContact = customerContactRepository.findByEmail("nonexist@noexist.com");
+    
+    assertNull(nullContact);
   }
 }
